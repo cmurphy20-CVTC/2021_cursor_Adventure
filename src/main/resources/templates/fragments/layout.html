@@ -8,8 +8,13 @@
 
 <body>
     <div class="background">
-                  
-   
+        <div class="container">
+                <li class="active">
+                    <a href="/"></a>
+                </li>
+                
+    </div>             
+    <div th:replace="${template}"/>
 
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
