@@ -1,0 +1,23 @@
+body {
+	font-family: 'Montserrat, sans-serif';
+  background-color: #71797E;
+}
+ 
+.big-heading {
+	font-family: 'Montserrat-Black';
+	font-size: 3.5rem;
+	font-weight: 900;
+	line-height: 1.5;
+}
+
+.container-fluid {
+  color: #FF5733;
+	padding: 10% 15% 35%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container-fluid > p {
+  color: #fff;
+}
+
