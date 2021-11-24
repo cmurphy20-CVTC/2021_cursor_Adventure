@@ -1,4 +1,35 @@
+var difficultySelector;
+
 $(function() {
+    
+    $('.bunker').hide();
+    
+    $('#diff_easy').on("click", function() {
+
+        var difficultySelector = "easy";
+    
+        $('.difficulty').hide();
+        
+        $('.bunker').show();
+    });
+    
+    $('#diff_normal').on("click", function() {
+
+    var difficultySelector = "normal";
+    
+    $('.difficulty').hide();
+        
+    $('.bunker').show();
+    });
+    
+    $('#diff_hard').on("click", function() {
+
+    var difficultySelector = "hard";
+    
+    $('.difficulty').hide();
+        
+    $('.bunker').show();
+    });
 
   $('#b_look').on("click", function() {
 
@@ -19,7 +50,4 @@ $(function() {
 
     $("#b_dialogue").html("<p>No arguements here....ZZZzzzzzzz...</p>"); 
   });
-
-
-
 })
