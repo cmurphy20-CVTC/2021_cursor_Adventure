@@ -21,3 +21,7 @@ body {
   color: #fff;
 }
 
+#b_music {
+	visibility: hidden;
+}
+
