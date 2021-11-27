@@ -43,7 +43,7 @@ $(function() {
 
   $('#b_look').on("click", function() {
 
-    $("#b_dialogue").html("<p>Still the same old grimey bunker.  The radio is still on.  Looks like I left a key on the floor too.</p>"); 
+    $("#b_dialogue").html("<p>Still the same old grimey bunker.  The radio is still on to the right.  Looks like I dopped the key on the floor to the left.</p>"); 
     $('#b_music').css("visibility", "visible");
   });
 
@@ -63,7 +63,7 @@ $(function() {
 
   $('#b_item').on("click", function() {
 
-    $("#b_dialogue").html("<p>I could pick it up...it's kinda far though..</p>");
+    $("#b_dialogue").html("<p>Walking over to key... Wonder what this is for?</p>");
     
     var score =+ 10
   });
