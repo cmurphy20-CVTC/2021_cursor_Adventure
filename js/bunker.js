@@ -71,6 +71,8 @@ $(function() {
     if (inventory.length < 1) {
       inventory.push("Bunker Key");
 
+      $("#inventory").html("Current Inventory(" + inventory.length + ")");
+
       inventory.forEach(function (item) {
         $("#inventory_items").append("<li>" + item + "</li>");
       });
