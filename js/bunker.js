@@ -5,6 +5,7 @@ $(function() {
     $('.bunker').hide();
 
     var score = 0;
+    var inventory = [];
     var bgMusic = new Audio('media/bunkerBg.mp3');
     bgMusic.loop = true;
     
@@ -66,6 +67,7 @@ $(function() {
     $("#b_dialogue").html("<p>Walking over to key... Wonder what this is for?</p>");
     
     var score =+ 10
+    inventory.push("Bunker Key");
   });
 
   $('#b_stare').on("click", function() {
