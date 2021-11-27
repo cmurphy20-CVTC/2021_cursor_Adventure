@@ -67,7 +67,14 @@ $(function() {
     $("#b_dialogue").html("<p>Walking over to key... Wonder what this is for?</p>");
     
     var score =+ 10
-    inventory.push("Bunker Key");
+    // Protect from user adding more than one bunker key 
+    if (inventory.length < 1) {
+      inventory.push("Bunker Key");
+
+      inventory.forEach(function (item) {
+        $("#inventory_items").append("<li>" + item + "</li>");
+      });
+    }  
   });
 
   $('#b_stare').on("click", function() {
