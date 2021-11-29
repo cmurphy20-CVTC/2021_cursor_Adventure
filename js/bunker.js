@@ -84,7 +84,7 @@ $(function() {
 
   });
 
-  $('#b_item').on("click", function() {
+  $('#b_itemPick').on("click", function() {
 
     $("#b_dialogue").html("<p>Walking over to key... Wonder what this is for?</p>");
     
@@ -92,6 +92,7 @@ $(function() {
     // Protect from user adding more than one bunker key 
     if (inventory.length < 3) {
       inventory.push("Bunker Key");
+      console.log(inventory[2]);
 
       $("#inventory").html("Current Inventory(" + inventory.length + ")");
 
@@ -100,13 +101,41 @@ $(function() {
     }  
   });
 
-  $('#b_stare').on("click", function() {
+  $('#b_useItem').on("click", function() {
 
-    $("#b_dialogue").html("<p>Is that a new spot on the wall?</p>"); 
+    // User tries to use items before the key is found
+    $("#b_dialogue").html("<p>I don't need to use my rations or water now. Maybe there is a key nearby?</p>"); 
+  
+    if (inventory[2] == "Bunker Key") {
+      // key is acquired
+      $("#b_dialogue").html("<p>It's the key I brought, almost lost it...</p><br>I should look for the door out of here.<p>");
+       
+    }
+
+    $('#b_look').on("click", function() {
+
+      // Looked for door to leave
+      $("#b_dialogue").html("<p>Jeez took me an hour to find this stupid door...Good time to use the key.<p>");
+       
+    })
+
+    $('#b_useItem').on("click", function() {
+
+      $("#b_dialogue").html("<p>Door is unlocked this place. Gonna miss the radio though..<p>");
+
+        // Used key on the door to leave
+        $('#b_leave').css("display", "inline-block");
+       
+    })
+  
   });
 
   $('#b_sleep').on("click", function() {
 
-    $("#b_dialogue").html("<p>No arguements here....ZZZzzzzzzz...</p>"); 
+    $("#b_dialogue").html("<p>I've already spent enough time in this creepy bunker...</p>"); 
+
+    $("b_sleep").css("display", "none");
   });
+
+  $('#b_leave').css("display", "none");
 })
