@@ -1,8 +1,6 @@
 var difficultySelector;
 
-$(function() {
-    
-    $('.bunker').hide();
+$(document).ready(function(){
 
     var score = 0;
     var inventory = ["Bottle of water", "Food ration"];
