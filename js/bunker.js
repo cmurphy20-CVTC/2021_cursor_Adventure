@@ -126,7 +126,7 @@ $(document).ready(function(){
 
     $('#b_useItem').on("click", function() {
 
-      $("#b_dialogue").html("<p>Door is unlocked this place. Gonna miss the radio though..<p>");
+      $("#b_dialogue").html("<p>Door is unlocked this place. Gonna miss the radio though...<p>");
 
         // Used key on the door to leave
         $('#b_leave').css("display", "inline-block");
