@@ -1,8 +1,9 @@
 var difficultySelector;
+var score;
 
 $(document).ready(function(){
 
-    var score = 0;
+    score = 0;
     var inventory = ["Bottle of water", "Food ration"];
     var bgMusic = new Audio('media/bunkerBg.mp3');
     bgMusic.loop = true;
@@ -10,6 +11,7 @@ $(document).ready(function(){
     $('#diff_easy').on("click", function() {
 
         var difficultySelector = "easy";
+        localStorage.setItem("difficulty", difficultySelector);
     
         $('.difficulty').hide();
 
@@ -28,6 +30,7 @@ $(document).ready(function(){
     $('#diff_normal').on("click", function() {
 
     var difficultySelector = "normal";
+    localStorage.setItem("difficulty", difficultySelector);
     
     $('.difficulty').hide();
 
@@ -46,6 +49,7 @@ $(document).ready(function(){
     $('#diff_hard').on("click", function() {
 
     var difficultySelector = "hard";
+    localStorage.setItem("difficulty", difficultySelector);
     
     $('.difficulty').hide();
 
@@ -73,11 +77,11 @@ $(document).ready(function(){
     if (!bgMusic.paused) { // Music is playing
       bgMusic.pause();
       $("#b_dialogue").html("<p>I hated that song.</p>");
-      $("#b_music").text("Turn radio on")
+      $("#b_music").text("Turn radio on");
     } else {  //  Music isn't playing
       bgMusic.play();
       $("#b_dialogue").html("<p>I'm feeling a bit lonely now.</p>");
-      $("#b_music").text("Turn radio off")
+      $("#b_music").text("Turn radio off");
     }
 
   });
@@ -86,13 +90,16 @@ $(document).ready(function(){
 
     $("#b_dialogue").html("<p>Walking over to key... Wonder what this is for?</p>");
     
-    var score =+ 10
+    var score =+ 10;
     // Protect from user adding more than one bunker key 
     if (inventory.length < 3) {
       inventory.push("Bunker Key");
       console.log(inventory[2]);
 
       $("#inventory").html("Current Inventory(" + inventory.length + ")");
+
+      // Adding score to local storage for use later
+      localStorage.setItem("score", score);
 
       // Adding key to list of inventory items
       $("#inventory_items").append("<li>" + inventory[2] + "</li>");
@@ -115,7 +122,7 @@ $(document).ready(function(){
       // Looked for door to leave
       $("#b_dialogue").html("<p>Jeez took me an hour to find this stupid door...Good time to use the key.<p>");
        
-    })
+    });
 
     $('#b_useItem').on("click", function() {
 
@@ -124,7 +131,7 @@ $(document).ready(function(){
         // Used key on the door to leave
         $('#b_leave').css("display", "inline-block");
        
-    })
+    });
   
   });
 
@@ -136,4 +143,4 @@ $(document).ready(function(){
   });
 
   $('#b_leave').css("display", "none");
-})
+});
