@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building</title>
+  <link rel="stylesheet" href="stylesheets/main.css">
+</head>
+<body>
+  
+    <div class="container-fluid">
+
+        <h1 class="big-heading">Burnt Out Building</h1>
+
+        <p id="bd_dialogue">Can't believe this place is still standing... what's left of it anyway..<br><br>
+        I used to work at this police station keeping track of inventory. It's wasn't a glamous job but updating spreadsheets paid my bills.<br><br>
+        Looks like people have already ransaked this place. Even if the armoury was raided some of the weapons were in password protected lockers.<br><br>
+        Good thing I copied the codes and kept them in a fireproof safe. Wish I could have grabbed it before the bombs fell...and a real knife.<br><br>
+        Luckily, theres one by this skeleton. I should pick it up. <br><br>
+        </p>
+
+        <button class="hide_btns" id="bd_look" type="button">Look Around</button><br>
+        <button id="bd_itemPick" type="button">Pick up item</button><br>
+        <button class="hide_btns" id="bd_useItem" type="button">Use item</button><br>
+
+        <button id="o_test" type="button">Start Combat</button><br>
+        
+        <h3 id="inventory">Current Inventory</h3>
+        <ul id="inventory_items">
+              
+        </ul>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+            crossorigin="anonymous"></script>
+    <script src="js/building.js"></script>
+
+</body>
+</html>
