@@ -21,7 +21,7 @@ body {
   color: #fff;
 }
 
-#b_music, #o_attack, #o_health, #o_restart {
+#b_music, #bd_attack, #bd_health, #bd_restart, #bd_combat {
 	visibility: hidden;
 }
 
