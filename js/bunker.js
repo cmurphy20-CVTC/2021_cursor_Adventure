@@ -3,12 +3,22 @@ var score;
 
 $(document).ready(function(){
 
+    // Declare Initial Variables
     score = 0;
+    var health;
     var inventory = ["Bottle of water", "Food ration"];
     var bgMusic = new Audio('media/bunkerBg.mp3');
     bgMusic.loop = true;
+
+    
     
     $('#diff_easy').on("click", function() {
+        // Make player have most health
+        health = 150; 
+
+        // Display health to page
+        $("#o_health").html("Health: " + health);
+
 
         var difficultySelector = "easy";
         localStorage.setItem("difficulty", difficultySelector);
@@ -31,6 +41,9 @@ $(document).ready(function(){
 
     var difficultySelector = "normal";
     localStorage.setItem("difficulty", difficultySelector);
+    health = 100; 
+    $("#o_health").html("Health: " + health);
+
     
     $('.difficulty').hide();
 
@@ -50,6 +63,8 @@ $(document).ready(function(){
 
     var difficultySelector = "hard";
     localStorage.setItem("difficulty", difficultySelector);
+    health = 75; 
+    $("#o_health").html("Health: " + health);
     
     $('.difficulty').hide();
 
@@ -127,6 +142,9 @@ $(document).ready(function(){
     $('#b_useItem').on("click", function() {
 
       $("#b_dialogue").html("<p>Door is unlocked this place. Gonna miss the radio though...<p>");
+      
+      // Save the current health level for use on other pages
+      localStorage.setItem("healthLevel", health);
 
         // Used key on the door to leave
         $('#b_leave').css("display", "inline-block");
