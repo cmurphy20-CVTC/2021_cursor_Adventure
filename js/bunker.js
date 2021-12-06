@@ -144,7 +144,7 @@ $(document).ready(function(){
       $("#b_dialogue").html("<p>Door is unlocked this place. Gonna miss the radio though...<p>");
       
       // Save the current health level for use on other pages
-      localStorage.setItem("healthLevel", health);
+      sessionStorage.setItem("healthLevel", health);
 
         // Used key on the door to leave
         $('#b_leave').css("display", "inline-block");
