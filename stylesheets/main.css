@@ -10,6 +10,17 @@ body {
 	line-height: 1.5;
 }
 
+.score-text {
+	color: #fff;
+	font-family:'Times New Roman', Times, serif;
+	font-size: 2.5rem;
+	font-weight: 600;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	visibility: hidden;
+}
+
 .container-fluid {
   color: #FF5733;
 	padding: 10% 15% 35%;

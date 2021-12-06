@@ -289,7 +289,11 @@ $(document).ready(function(){
   
     } else if (playerHealth <= 0) {
   
+      // Player died and showing game over screen
         $("#bd_dialogue").html("<p>Looks like you died.  Better luck next time.</p>");
+        
+        $(".score-text").text("Score: " + score);
+        $('.score-text').css("visibility", "visible");
         $('#bd_restart').css("visibility", "visible");
         $('#bd_attack').css("visibility", "hidden");
   
