@@ -20,6 +20,7 @@ $(function() {
     // Hide option buttons upon start
     $('#o_option1').toggle();
     $('#o_option2').toggle();
+    $('#o_leave').toggle();
     
 
     // Reset inventory to remove key 
@@ -81,7 +82,9 @@ $(function() {
                     
                     $('#o_option2').on("click", function() {
                         
-                        $("#o_dialogue").html("<p>I made it safely across the highway. I turned around to see where those men were. I cannot see them, so I am going to assume they are headed the opposite direction of the bulding.<br><br><br>(Start Bulding Squence)</p>");
+                        $("#o_dialogue").html("<p>I made it safely across the highway. I turned around to see where those men were. I cannot see them, so I am going to assume they are headed the opposite direction of the bulding.</p>");
+                        
+                        $('#o_leave').toggle();
                         
                         $('#o_option1').toggle();
                         $('#o_option2').toggle();
