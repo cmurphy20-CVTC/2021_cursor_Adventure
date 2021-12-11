@@ -3,6 +3,9 @@ $(document).ready(function(){
   var inventory = ["Bottle of water", "Food ration"];
   var difficulty = localStorage.getItem("difficulty");
   var score = parseInt(localStorage.getItem("score"));
+  var health = sessionStorage.getItem("healthLevel");
+
+  $("#bd_health").html("Health: " + health);
 
   $('#bd_combat').css("display", "none");
 
@@ -154,7 +157,6 @@ $(document).ready(function(){
     $('#bd_look').hide();
   
     // Variables
-    var playerHealth = 50;
     var playerAttack;
     var enemyAttack;
     var minRoll = 1;
@@ -222,14 +224,13 @@ $(document).ready(function(){
     $('#bd_itemPick').hide();
     $('#bd_useItem').hide();
   
-    // Show new button and health
-    $('#bd_health').css("visibility", "visible");
+    // Show new button and enemy health
     $('#bd_attack').css("visibility", "visible");
   
       $('#bd_attack').on("click", function() {
   
       //  Loop for while the enemy or player is alive
-      if (enemyHealth > 1 && playerHealth > 1) {
+      if (enemyHealth > 1 && health > 1) {
   
         playerAttack = attackDmg(minRoll, maxRoll);
   
@@ -263,31 +264,31 @@ $(document).ready(function(){
         //  rolled a 2 or lower
         if (enemyAttack <= 2) {
           damage = lowDmg;
-          playerHealth = playerHealth - damage;
+          health = health - damage;
           enemyAttackMsg = "<p>You're hit for " + damage + " points of damage.</p>";
   
         //  rolled between 3 and 5
         } else if (enemyAttack == 3 || enemyAttack == 4 || enemyAttack == 5) {
           damage = baseDmg;
-          playerHealth = playerHealth - damage;
+          health = health - damage;
           enemyAttackMsg = "<p>You're hit for " + damage + " points of damage.</p>";
           
         //  rolled a 6
         } else if (enemyAttack == 6) {
           damage = critDmg;
-          playerHealth = playerHealth - damage;
+          health = health - damage;
           enemyAttackMsg = "<p>You're hit for " + damage + " points of damage.</p>";
 
         }
   
         $("#bd_dialogue").html(playerAttackMsg + enemyAttackMsg);
-        $("#bd_health").html("Health: " + playerHealth);
+        $("#bd_health").html("Health: " + health);
 
         if (playerHealth <= 0 || enemyHealth <= 0) {
           $("#bd_attack").text("End combat");
         }
   
-    } else if (playerHealth <= 0) {
+    } else if (health <= 0) {
   
       // Player died and showing game over screen
         $("#bd_dialogue").html("<p>Looks like you died.  Better luck next time.</p>");
@@ -303,10 +304,7 @@ $(document).ready(function(){
   
         $("#bd_dialogue").html("<p>Looks like I got them all.  That was a close one.</p>");
   
-        playerHealth = 50;
-  
-      //  Hide health, attack and start combat buttons
-      $('#bd_health').hide();
+      //  Hide attack and start combat buttons
       $('#bd_attack').hide();
     
       // Show look, pickup item, and use items button

@@ -103,7 +103,7 @@ $(document).ready(function(){
 
   $('#b_itemPick').on("click", function() {
 
-    $("#b_dialogue").html("<p>Walking over to key... Wonder what this is for?</p>");
+    $("#b_dialogue").html("<p>Walking over to the key... Wonder what this is for?</p>");
     
     var score =+ 10;
     // Protect from user adding more than one bunker key 
