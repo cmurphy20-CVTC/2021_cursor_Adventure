@@ -10,6 +10,13 @@ body {
 	line-height: 1.5;
 }
 
+.credit-heading {
+	font-family: 'Montserrat-Black';
+	font-size: 3.5rem;
+	font-weight: 900;
+	line-height: 1.5;
+}
+
 .score-text {
 	color: #fff;
 	font-family:'Times New Roman', Times, serif;
@@ -32,7 +39,7 @@ body {
   color: #fff;
 }
 
-#b_music, #bd_attack, #o_restart, #bd_restart, #o_combat, #bd_combat {
+#b_music, #bd_attack, #o_restart, #bd_restart, #o_combat, #bd_combat, #bd_endgame {
 	visibility: hidden;
 }
 
