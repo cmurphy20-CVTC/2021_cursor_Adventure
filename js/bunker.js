@@ -21,7 +21,7 @@ $(document).ready(function(){
 
 
         var difficultySelector = "easy";
-        localStorage.setItem("difficulty", difficultySelector);
+        sessionStorage.setItem("difficulty", difficultySelector);
     
         $('.difficulty').hide();
 
@@ -40,7 +40,7 @@ $(document).ready(function(){
     $('#diff_normal').on("click", function() {
 
     var difficultySelector = "normal";
-    localStorage.setItem("difficulty", difficultySelector);
+    sessionStorage.setItem("difficulty", difficultySelector);
     health = 100; 
     $("#o_health").html("Health: " + health);
 
@@ -62,7 +62,7 @@ $(document).ready(function(){
     $('#diff_hard').on("click", function() {
 
     var difficultySelector = "hard";
-    localStorage.setItem("difficulty", difficultySelector);
+    sessionStorage.setItem("difficulty", difficultySelector);
     health = 75; 
     $("#o_health").html("Health: " + health);
     
@@ -113,8 +113,7 @@ $(document).ready(function(){
 
       $("#inventory").html("Current Inventory(" + inventory.length + ")");
 
-      // Adding score to local storage for use later
-      localStorage.setItem("score", score);
+      console.log("Bunker Score: " + score);
 
       // Adding key to list of inventory items
       $("#inventory_items").append("<li>" + inventory[2] + "</li>");
@@ -143,8 +142,9 @@ $(document).ready(function(){
 
       $("#b_dialogue").html("<p>Door is unlocked this place. Gonna miss the radio though...<p>");
       
-      // Save the current health level for use on other pages
+      // Save the current health level and score for use on other pages
       sessionStorage.setItem("healthLevel", health);
+      sessionStorage.setItem("score", score);
 
         // Used key on the door to leave
         $('#b_leave').css("display", "inline-block");

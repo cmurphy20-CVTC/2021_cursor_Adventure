@@ -1,9 +1,11 @@
 $(document).ready(function(){
 
   var inventory = ["Bottle of water", "Food ration"];
-  var difficulty = localStorage.getItem("difficulty");
-  var score = parseInt(localStorage.getItem("score"));
+  var difficulty = sessionStorage.getItem("difficulty");
+  var score = parseInt(sessionStorage.getItem("score"));
   var health = sessionStorage.getItem("healthLevel");
+
+  console.log(health);
 
   $("#bd_health").html("Health: " + health);
 
@@ -28,9 +30,6 @@ $(document).ready(function(){
       inventory.push("Combat Knife");
 
       $("#inventory").html("Current Inventory(" + inventory.length + ")");
-
-      // Adding score to local storage for use later
-      localStorage.setItem("score", score);
 
       // Adding knife to list of inventory items
       $("#inventory_items").append("<li>" + inventory[2] + "</li>");
@@ -284,7 +283,7 @@ $(document).ready(function(){
         $("#bd_dialogue").html(playerAttackMsg + enemyAttackMsg);
         $("#bd_health").html("Health: " + health);
 
-        if (playerHealth <= 0 || enemyHealth <= 0) {
+        if (health <= 0 || enemyHealth <= 0) {
           $("#bd_attack").text("End combat");
         }
   
@@ -302,15 +301,17 @@ $(document).ready(function(){
   
       score = score + 20;
   
-        $("#bd_dialogue").html("<p>Looks like I got them all.  That was a close one.</p>");
+        $("#bd_dialogue").html("<p>Looks like I got them all.  That was a close one.<br>  I might have a good amount of supplies now.<br>  I should head back home.</p>");
+        console.log("Building Score: " + score);
   
       //  Hide attack and start combat buttons
       $('#bd_attack').hide();
-    
-      // Show look, pickup item, and use items button
-      $('#bd_look').show();
-      $('#bd_itemPick').show();
-      $('#bd_useItem').show();
+
+      // Link for ending game
+      $('#bd_endgame').css("visibility", "visible");
+
+      // Adding score to local storage for use later
+      sessionStorage.setItem("score", score);
   
     }
   

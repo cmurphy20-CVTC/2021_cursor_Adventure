@@ -85,6 +85,9 @@ $(function() {
                         $("#o_dialogue").html("<p>I made it safely across the highway. I turned around to see where those men were. I cannot see them, so I am going to assume they are headed the opposite direction of the bulding.</p>");
                         
                         $('#o_leave').toggle();
+
+                        // Save the current health level for use on other pages
+                        sessionStorage.setItem("healthLevel", health);
                         
                         $('#o_option1').toggle();
                         $('#o_option2').toggle();
