@@ -1,20 +1,98 @@
 body {
+	padding: 0;
+	margin: 0;
+	display: flex;
 	font-family: 'Montserrat, sans-serif';
-  background-color: #71797E;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+  background-color: #696969;
+}
+
+a {
+	color: #fff;
+	text-decoration: none;
+}
+
+ p {
+  color: #fff;
+	font-size: 24px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
 }
  
 .big-heading {
+	background-color: #FF5733;
+	color: #fff;
+	font-family: 'Montserrat-Black';
+	font-size: 3.5rem;
+	font-weight: 900;
+	line-height: 1.5;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.btn-grid {
+	align-items: center;
+	display: grid;
+	grid-template-columns: 1, 50%;
+	gap: 10px;
+	margin-top: 20px;
+}
+
+
+.btn {
+	background-color: #FF5733;
+	border-radius: 5px;
+	color: #fff;
+	height: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 5px 10px;
+	outline: none;
+	font-size: 24px;
+	width: 50%;
+}
+
+.btn:hover {
+	border-color: black;
+}
+.credit-heading {
 	font-family: 'Montserrat-Black';
 	font-size: 3.5rem;
 	font-weight: 900;
 	line-height: 1.5;
 }
 
-.credit-heading {
-	font-family: 'Montserrat-Black';
-	font-size: 3.5rem;
-	font-weight: 900;
-	line-height: 1.5;
+.difficulty {
+	display: grid;
+	grid-gap: 10px;
+	grid-auto-rows: minmax(75px, auto);
+	margin-left: auto;
+	margin-right: auto;
+	width: 75%;
+}
+
+.container-fluid {
+	border-radius: 5px;
+	box-shadow: 0 0 10px 2px;
+  color: #FF5733;
+  margin-left: auto;
+  margin-right: auto;
+	max-width: 100%;
+	padding: 10px;
+	width: 800px;
+}
+
+#b_music, #bd_attack, #o_restart, #bd_restart, #o_combat, #bd_combat, #bd_endgame {
+	visibility: hidden;
+}
+
+.bunker {
+	display: none;
 }
 
 .score-text {
@@ -26,23 +104,4 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	visibility: hidden;
-}
-
-.container-fluid {
-  color: #FF5733;
-	padding: 10% 15% 35%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.container-fluid > p {
-  color: #fff;
-}
-
-#b_music, #bd_attack, #o_restart, #bd_restart, #o_combat, #bd_combat, #bd_endgame {
-	visibility: hidden;
-}
-
-.bunker {
-	display: none;
 }
