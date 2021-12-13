@@ -159,21 +159,35 @@ $(document).ready(function(){
   });
 
   $('#b_look').on("click", function() {
+    // Determine output
     if (!keyFound && radioOn) {
+      // Initial dialouge
       dialogue("Still the same old grimey bunker.  The radio is still on to the right.  Looks like I dropped the key on the floor to the left."); 
+      
+      // Show music and item buttons
       $('#b_music').css("visibility", "visible");
       $('#b_itemPick').css("visibility", "visible");
+
     } else if (!keyFound && !radioOn) {
+      // Radio turned off 
       dialogue("Still the same old grimey bunker. It's very quiet now. Looks like I dropped the key on the floor to the left.");
+
     } else {
+      // Key is found
       if (!doorFound) {
+        // Find the door next
         dialogue("Looks like the door is over there. Going over to get a better look.");
         doorFound = true;
+
       } else {
         if (!doorUnlocked) {
+          // Guide user to using inventory item
           dialogue("I think I better use that key.");
+
         } else {
+          // Display only once door is opened with key
           dialogue("It's time to get some fresh air...");
+
         }
       }
     }     
