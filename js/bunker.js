@@ -102,21 +102,29 @@ $(document).ready(function(){
     // Set and store max health
     health = initalHealth;
     sessionStorage.setItem("initalHealth", initalHealth);
-    inventory = {
-      "Bottle of water": 25, 
-      "Food ration" : 50
-    };
 
     // Set game diff
     switch (diff) {
       case "easy": 
         difficultySelector = "easy";
+        inventory = {
+          "Bottle of water": 25, 
+          "Food ration" : 50
+        };
         break;
       case "normal":
         difficultySelector = "normal";
+        inventory = {
+          "Bottle of water": 15, 
+          "Food ration" : 40
+        };
         break;
       case "hard":
         difficultySelector = "hard";
+        inventory = {
+          "Bottle of water": 10, 
+          "Food ration" : 30
+        };
         break;
     }
     

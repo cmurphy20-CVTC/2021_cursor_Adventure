@@ -87,7 +87,7 @@ a {
 	width: 800px;
 }
 
-#b_music, #bd_attack, #o_restart, #bd_restart, #o_combat, #bd_combat, #bd_endgame {
+#b_itemPick, #b_music, #bd_attack, #o_restart, #bd_restart, #o_combat, #bd_combat, #bd_endgame {
 	visibility: hidden;
 }
 
