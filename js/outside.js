@@ -21,7 +21,7 @@ $(function() {
             };
             $("#o_health").html("Health: " + health);
         }, 
-        5000); // 1000ms = 1s 
+        800); // 1000ms = 1s 
     
     // Hide option buttons upon start
     $('#o_option1').toggle();
@@ -79,9 +79,13 @@ $(function() {
         // Determine how the item will be used
         switch (itemKey) {
           case "Bottle of water":
+              // Remove 5 water and add 5 health
               useHealthItem(itemKey, 5);
+              break;
           case "Food ration": 
+                // Remove 10 water and add 10 health
               useHealthItem(itemKey, 10);
+              break;
         }     
       });
     }
@@ -94,6 +98,11 @@ $(function() {
 
             // Add health
             health += amount;
+
+            // Remove item if it is empty 
+            if (inventory[itemKey] <= 0) {
+                delete inventory[itemKey]; 
+            }
                         
             // Update health and inventory
             displayInventory();
