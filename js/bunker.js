@@ -3,87 +3,172 @@ var score;
 
 $(document).ready(function(){
 
-    // Declare Initial Variables
-    score = 0;
-    var health;
-    var inventory = ["Bottle of water", "Food ration"];
-    var bgMusic = new Audio('media/bunkerBg.mp3');
-    bgMusic.loop = true;
 
-    
-    
-    $('#diff_easy').on("click", function() {
-        // Make player have most health
-        health = 150; 
+  // Declare Initial Variables
+  score = 0;
+  var health;
+  var inventory;
+  var bgMusic = new Audio('media/bunkerBg.mp3');
+  bgMusic.loop = true;
+  var keyFound = false;
+  var radioOn = true;
+  var doorFound = false; 
+  var doorUnlocked = false;
 
-        // Display health to page
-        $("#o_health").html("Health: " + health);
+  function inventoryLength() {
+    // Declare starting var
+    count = 0;
 
+    // count each item in inventory
+    for (var x in inventory) {
+        count++;
+    }
 
-        var difficultySelector = "easy";
-        sessionStorage.setItem("difficulty", difficultySelector);
-    
-        $('.difficulty').hide();
+    return count; 
+  }
 
-        bgMusic.play();
-
-        // Displaying inventory as soon as game starts
-        $("#inventory").html("Current Inventory(" + inventory.length + ")");
-
-        inventory.forEach(function (item) {
-          $("#inventory_items").append("<li>" + item + "</li>");
-        });
-        
-        $('.bunker').show();
-    });
-    
-    $('#diff_normal').on("click", function() {
-
-    var difficultySelector = "normal";
-    sessionStorage.setItem("difficulty", difficultySelector);
-    health = 100; 
-    $("#o_health").html("Health: " + health);
-
-    
-    $('.difficulty').hide();
-
-    bgMusic.play();
+  // Call to display current inventory
+  function displayInventory() {
+    // Ensure all prevous entires have been deleted
+    $("#inventory_items").children().remove();
 
     // Displaying inventory as soon as game starts
-    $("#inventory").html("Current Inventory(" + inventory.length + ")");
+    $("#inventory").html("Current Inventory(" + inventoryLength() + ")");
 
-    inventory.forEach(function (item) {
-      $("#inventory_items").append("<li>" + item + "</li>");
-    });
-        
-    $('.bunker').show();
-    });
+    for (var key in inventory) {
+      // Get information saved by index
+      var amount = inventory[key];
+
+      // Determine output formatting
+      if (amount == null) {
+        amount = ""; 
+      } else {
+        amount = ": " + amount;
+      }
+
+      // Add item to items list
+      $("#inventory_items").append("<li id=\"" + key + "\"><button class=\"item_button\">Use</button>\t" + key + "\t" + amount + "</li>");
+
+    };
+
+    // Create listener event for all item buttons
+    $('.item_button').on('click', function() {
+      // Capture the id of the item
+      var itemKey = $(this).closest('li').attr('id');
+
+      // Determine how the item will be used
+      switch (itemKey) {
+        case "Food ration":
+        case "Bottle of water": 
+          dialogue("I don't need to use my rations or water now.");
+          break;
+        case "Bunker key":
+          if (doorFound) {
+            dialogue("The door is unlocked. Gonna miss the radio though...");
+
+            doorUnlocked = true;
     
-    $('#diff_hard').on("click", function() {
+            // Remove key from inventory 
+            delete inventory["Bunker key"];
 
-    var difficultySelector = "hard";
+            // Refresh Inventory 
+            displayInventory();
+
+            // Save the current health level and score for use on other pages
+            sessionStorage.setItem("healthLevel", health);
+            sessionStorage.setItem("score", score);
+            sessionStorage.setItem("inventory", JSON.stringify(inventory));
+
+            // Used key on the door to leave
+            $('#b_leave').css("display", "inline-block");
+            $('#b_sleep').css("visibility", "hidden");
+            $('#b_music').css("visibility", "hidden");
+
+            
+          } else {
+            dialogue("Where is the door at?");
+          }
+      }     
+    });
+  }
+
+  // Handle text to displayed on b_dialogue
+  function dialogue(output) {
+    $("#b_dialogue").html("<p>" + output + "</p>");
+  }
+
+  // Setup the difficulty of the game
+  function setDiff(initalHealth, diff) {
+    // Set and store max health
+    health = initalHealth;
+    sessionStorage.setItem("initalHealth", initalHealth);
+    inventory = {
+      "Bottle of water": 25, 
+      "Food ration" : 50
+    };
+
+    // Set game diff
+    switch (diff) {
+      case "easy": 
+        difficultySelector = "easy";
+        break;
+      case "normal":
+        difficultySelector = "normal";
+        break;
+      case "hard":
+        difficultySelector = "hard";
+        break;
+    }
+    
+    // Save in session for other pages
     sessionStorage.setItem("difficulty", difficultySelector);
-    health = 75; 
-    $("#o_health").html("Health: " + health);
-    
-    $('.difficulty').hide();
 
+    // Change current display to bunker
+    $('.difficulty').hide();
+    $('.bunker').show();
+
+    // Start music
     bgMusic.play();
 
-    // Displaying inventory as soon as game starts
-    $("#inventory").html("Current Inventory(" + inventory.length + ")");
+    // Update health 
+    $("#o_health").html("<h3>Health: " + health + "</h3>");
 
-    inventory.forEach(function (item) {
-      $("#inventory_items").append("<li>" + item + "</li>");
-    });
-        
-    $('.bunker').show();
-    });
+    // Populate inventory
+    displayInventory();
+  }
+
+  
+  $('#diff_easy').on("click", function() {
+      setDiff(150, "easy");
+  });
+  
+  $('#diff_normal').on("click", function() {
+      setDiff(100, "normal");
+  });
+  
+  $('#diff_hard').on("click", function() {
+    setDiff(75, "hard");
+  });
 
   $('#b_look').on("click", function() {
-
-    $("#b_dialogue").html("<p>Still the same old grimey bunker.  The radio is still on to the right.  Looks like I dropped the key on the floor to the left.</p>"); 
-    $('#b_music').css("visibility", "visible");
+    if (!keyFound && radioOn) {
+      dialogue("Still the same old grimey bunker.  The radio is still on to the right.  Looks like I dropped the key on the floor to the left."); 
+      $('#b_music').css("visibility", "visible");
+      $('#b_itemPick').css("visibility", "visible");
+    } else if (!keyFound && !radioOn) {
+      dialogue("Still the same old grimey bunker. It's very quiet now. Looks like I dropped the key on the floor to the left.");
+    } else {
+      if (!doorFound) {
+        dialogue("Looks like the door is over there. Going over to get a better look.");
+        doorFound = true;
+      } else {
+        if (!doorUnlocked) {
+          dialogue("I think I better use that key.");
+        } else {
+          dialogue("It's time to get some fresh air...");
+        }
+      }
+    }     
   });
 
   // Toggling background music on and off
@@ -91,71 +176,34 @@ $(document).ready(function(){
 
     if (!bgMusic.paused) { // Music is playing
       bgMusic.pause();
-      $("#b_dialogue").html("<p>I hated that song.</p>");
+      dialogue("I hated that song.");
       $("#b_music").text("Turn radio on");
+      radioOn=false; 
     } else {  //  Music isn't playing
       bgMusic.play();
-      $("#b_dialogue").html("<p>I'm feeling a bit lonely now.</p>");
+      dialogue("I'm feeling a bit lonely now.");
       $("#b_music").text("Turn radio off");
+      radioOn=true;
     }
 
   });
 
   $('#b_itemPick').on("click", function() {
 
-    $("#b_dialogue").html("<p>Walking over to the key... Wonder what this is for?</p>");
+    dialogue("Walking over to the key... Wonder what this is for?");
+    inventory["Bunker key"] = null;
+    keyFound = true;
+    displayInventory();
     
-    var score =+ 10;
-    // Protect from user adding more than one bunker key 
-    if (inventory.length < 3) {
-      inventory.push("Bunker Key");
-      console.log(inventory[2]);
+    score =+ 10;
 
-      $("#inventory").html("Current Inventory(" + inventory.length + ")");
-
-      console.log("Bunker Score: " + score);
-
-      // Adding key to list of inventory items
-      $("#inventory_items").append("<li>" + inventory[2] + "</li>");
-    }  
+    $('#b_itemPick').css("visibility", "hidden");
   });
 
-  $('#b_useItem').on("click", function() {
-
-    // User tries to use items before the key is found
-    $("#b_dialogue").html("<p>I don't need to use my rations or water now. Maybe there is a key nearby?</p>"); 
-  
-    if (inventory[2] == "Bunker Key") {
-      // key is acquired
-      $("#b_dialogue").html("<p>It's the key I brought, almost lost it...</p><br>I should look for the door out of here.<p>");
-       
-    }
-
-    $('#b_look').on("click", function() {
-
-      // Looked for door to leave
-      $("#b_dialogue").html("<p>Jeez took me an hour to find this stupid door...Good time to use the key.<p>");
-       
-    });
-
-    $('#b_useItem').on("click", function() {
-
-      $("#b_dialogue").html("<p>Door is unlocked this place. Gonna miss the radio though...<p>");
-      
-      // Save the current health level and score for use on other pages
-      sessionStorage.setItem("healthLevel", health);
-      sessionStorage.setItem("score", score);
-
-        // Used key on the door to leave
-        $('#b_leave').css("display", "inline-block");
-       
-    });
-  
-  });
 
   $('#b_sleep').on("click", function() {
 
-    $("#b_dialogue").html("<p>I've already spent enough time in this creepy bunker...</p>"); 
+    dialogue("I've already spent enough time in this creepy bunker..."); 
 
     $("b_sleep").css("display", "none");
   });
