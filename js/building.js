@@ -70,6 +70,8 @@ $(document).ready(function(){
               // Remove 10 water and add 10 health
             useHealthItem(itemKey, 10);
             break;
+        case "Combat Knife":
+          $("#bd_dialogue").html("<p>\"Furiously swings around knife dispatching imaginary foes\".<p>");
       }     
     });
   }
@@ -247,7 +249,7 @@ $(document).ready(function(){
 
       // Checking if player has gun before the combat sequence
       // If they do, they have higher damage
-      if (inventory.length == 4) {
+      if (inventory.hasOwnProperty('Handgun')) {
         var lowDmg = 12;
         var baseDmg = 14;
         var critDmg = 16;
@@ -262,7 +264,7 @@ $(document).ready(function(){
 
       // Checking if player has gun before the combat sequence
       // If they do, they have higher damage
-      if (inventory.length == 4) {
+      if (inventory.hasOwnProperty('Handgun')) {
         var lowDmg = 10;
         var baseDmg = 12;
         var critDmg = 14;
@@ -277,7 +279,7 @@ $(document).ready(function(){
 
       // Checking if player has gun before the combat sequence
       // If they do, they have higher damage
-      if (inventory.length == 4) {
+      if (inventory.hasOwnProperty('Handgun')) {
         var lowDmg = 8;
         var baseDmg = 10;
         var critDmg = 12;
