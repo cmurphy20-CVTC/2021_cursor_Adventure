@@ -12,7 +12,7 @@ $(function() {
     showHealth();
     
 
-    // Start method that subtracts radiation damage every 5 seconds
+    // Start method that subtracts radiation damage every 1 seconds
     setInterval(function() {
             health--;
             if (health < 0) {
@@ -21,7 +21,7 @@ $(function() {
             };
             $("#o_health").html("Health: " + health);
         }, 
-        5000); // 1000ms = 1s 
+        1000); // 1000ms = 1s 
     
     // Hide option buttons upon start
     $('#o_option1').toggle();
@@ -80,11 +80,11 @@ $(function() {
         switch (itemKey) {
           case "Bottle of water":
               // Remove 5 water and add 5 health
-              useHealthItem(itemKey, 5);
+              useHealthItem(itemKey, 25);
               break;
           case "Food ration": 
                 // Remove 10 water and add 10 health
-              useHealthItem(itemKey, 10);
+              useHealthItem(itemKey, 50);
               break;
         }     
       });
@@ -94,7 +94,7 @@ $(function() {
     function useHealthItem(itemKey, amount) {
         if (health <= (maxHealth-amount)) {
             // Subtract amount from item
-            inventory[itemKey] -= amount;
+            inventory[itemKey] --;
 
             // Add health
             health += amount;
@@ -166,6 +166,7 @@ $(function() {
 
                         // Save the current health level for use on other pages
                         sessionStorage.setItem("healthLevel", health);
+                        sessionStorage.setItem("inventory", JSON.stringify(inventory));
                         
                         $('#o_option1').toggle();
                         $('#o_option2').toggle();

@@ -108,22 +108,22 @@ $(document).ready(function(){
       case "easy": 
         difficultySelector = "easy";
         inventory = {
-          "Bottle of water": 25, 
-          "Food ration" : 50
+          "Bottle of water": 3, 
+          "Food ration" : 3
         };
         break;
       case "normal":
         difficultySelector = "normal";
         inventory = {
-          "Bottle of water": 15, 
-          "Food ration" : 40
+          "Bottle of water": 2, 
+          "Food ration" : 2
         };
         break;
       case "hard":
         difficultySelector = "hard";
         inventory = {
-          "Bottle of water": 10, 
-          "Food ration" : 30
+          "Bottle of water": 1, 
+          "Food ration" : 1
         };
         break;
     }

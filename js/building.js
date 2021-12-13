@@ -1,9 +1,98 @@
 $(document).ready(function(){
 
-  var inventory = ["Bottle of water", "Food ration"];
+  // Declare initial vars
+  var inventory = JSON.parse(sessionStorage.getItem("inventory"));
   var difficulty = sessionStorage.getItem("difficulty");
   var score = parseInt(sessionStorage.getItem("score"));
-  var health = sessionStorage.getItem("healthLevel");
+  var health = parseInt(sessionStorage.getItem("healthLevel"));
+  var maxHealth = sessionStorage.getItem("initalHealth");
+
+   
+  // Display current health
+  function showHealth() {
+    $("#bd_health").html("Health: " + health);``
+  }
+
+  // Display intial health
+  showHealth();
+
+  function inventoryLength() {
+      // Declare starting var
+      count = 0;
+
+      // count each item in inventory
+      for (var x in inventory) {
+          count++;
+      }
+
+      return count; 
+    }
+
+  // Call to display current inventory
+  function displayInventory() {
+    // Ensure all prevous entires have been deleted
+    $("#inventory_items").children().remove();
+
+    // Displaying inventory as soon as game starts
+    $("#inventory").html("Current Inventory(" + inventoryLength() + ")");
+
+    for (var key in inventory) {
+      // Get information saved by index
+      var amount = inventory[key];
+
+      // Determine output formatting
+      if (amount == null) {
+        amount = ""; 
+      } else {
+        amount = ": " + amount;
+      }
+
+      // Add item to items list
+      $("#inventory_items").append("<li id=\"" + key + "\"><button class=\"item_button\">Use</button>\t" + key + "\t" + amount + "</li>");
+
+    };
+
+    // Create listener event for all item buttons
+    $('.item_button').on('click', function() {
+      
+      // Capture the id of the item
+      var itemKey = $(this).closest('li').attr('id');
+
+      console.log(itemKey);
+
+      // Determine how the item will be used
+      switch (itemKey) {
+        case "Bottle of water":
+            // Remove 5 water and add 5 health
+            useHealthItem(itemKey, 5);
+            break;
+        case "Food ration": 
+              // Remove 10 water and add 10 health
+            useHealthItem(itemKey, 10);
+            break;
+      }     
+    });
+  }
+
+  // Called to when item is used to increase health
+  function useHealthItem(itemKey, amount) {
+    if (health <= (maxHealth-amount)) {
+        // Subtract amount from item
+        inventory[itemKey] -= amount;
+
+        // Add health
+        health += amount;
+
+        // Remove item if it is empty 
+        if (inventory[itemKey] <= 0) {
+            delete inventory[itemKey]; 
+        }
+                    
+        // Update health and inventory
+        displayInventory();
+        showHealth();
+    }
+}
 
   console.log(health);
 
@@ -11,11 +100,7 @@ $(document).ready(function(){
 
   $('#bd_combat').css("display", "none");
 
-  $("#inventory").html("Current Inventory(" + inventory.length + ")");
-
-        inventory.forEach(function (item) {
-          $("#inventory_items").append("<li>" + item + "</li>");
-        });
+  displayInventory();
 
   $(".hide_btns").css("display", "none");
 
@@ -26,14 +111,8 @@ $(document).ready(function(){
     
     $("#bd_dialogue").html("<p>Sorry buddy I'll be needing this more than you. This knife will be handy if I get into a fight. I should look around to get see what I can find.<p>");
 
-    if (inventory.length < 3) {
-      inventory.push("Combat Knife");
-
-      $("#inventory").html("Current Inventory(" + inventory.length + ")");
-
-      // Adding knife to list of inventory items
-      $("#inventory_items").append("<li>" + inventory[2] + "</li>");
-    }  
+    inventory["Combat Knife"] = null;
+    displayInventory();
 
   });
 
@@ -78,14 +157,8 @@ $(document).ready(function(){
             $("#bd_dialogue").html("<p>9-1-1-1..Creative. Well I got a handgun and some bullets.<br><br>" +
             "Wait...what was that noise?</p>");
 
-            if (inventory.length < 4) {
-              inventory.push("Handgun");
-        
-              $("#inventory").html("Current Inventory(" + inventory.length + ")");
-                
-              // Adding knife to list of inventory items
-              $("#inventory_items").append("<li>" + inventory[3] + "</li>");
-            }
+            inventory["Handgun"] = 10; 
+            displayInventory();
             
             $("#bd_itemPick").css("display", "none");
 
