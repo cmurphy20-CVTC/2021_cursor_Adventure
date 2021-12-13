@@ -1,21 +1,27 @@
 $(function() {
     // Set initial health
-    var health = sessionStorage.getItem("healthLevel");
-    console.log(health);
-    $("#o_health").html("Health: " + health);
-
-    // Start method that subtracts radiation damage every 7 seconds
-    setInterval(dmg, 7000);
-
-    // Function used to subtract radiation damage
-    function dmg() {
-        health--;
-        if (health < 0) {
-            alert("You died!")
-            window.location = "1_bunker.html"; 
-        };
+    var health = parseInt(sessionStorage.getItem("healthLevel"));
+    var maxHealth = sessionStorage.getItem("initalHealth");
+    
+    // Display current health
+    function showHealth() {
         $("#o_health").html("Health: " + health);
     }
+
+    // Display intial health
+    showHealth();
+    
+
+    // Start method that subtracts radiation damage every 5 seconds
+    setInterval(function() {
+            health--;
+            if (health < 0) {
+                alert("You died!")
+                window.location = "1_bunker.html"; 
+            };
+            $("#o_health").html("Health: " + health);
+        }, 
+        5000); // 1000ms = 1s 
     
     // Hide option buttons upon start
     $('#o_option1').toggle();
@@ -24,16 +30,77 @@ $(function() {
     
 
     // Reset inventory to remove key 
-    var inventory = ["Bottle of water", "Food ration"];
+    var inventory = JSON.parse(sessionStorage.getItem("inventory"));
 
-    // Display inventory header and number of items
-    $("#inventory").html("Current Inventory(" + inventory.length + ")");
+    function inventoryLength() {
+        // Declare starting var
+        count = 0;
+  
+        // count each item in inventory
+        for (var x in inventory) {
+            count++;
+        }
+  
+        return count; 
+      }
+  
+    // Call to display current inventory
+    function displayInventory() {
+      // Ensure all prevous entires have been deleted
+      $("#inventory_items").children().remove();
 
-    // Display current inventory items 
-    inventory.forEach(function (item) {
-      $("#inventory_items").append("<li>" + item + "</li>");
-    });
-    
+      // Displaying inventory as soon as game starts
+      $("#inventory").html("Current Inventory(" + inventoryLength() + ")");
+
+      for (var key in inventory) {
+        // Get information saved by index
+        var amount = inventory[key];
+
+        // Determine output formatting
+        if (amount == null) {
+          amount = ""; 
+        } else {
+          amount = ": " + amount;
+        }
+
+        // Add item to items list
+        $("#inventory_items").append("<li id=\"" + key + "\"><button class=\"item_button\">Use</button>\t" + key + "\t" + amount + "</li>");
+
+      };
+
+      // Create listener event for all item buttons
+      $('.item_button').on('click', function() {
+        
+        // Capture the id of the item
+        var itemKey = $(this).closest('li').attr('id');
+
+        console.log(itemKey);
+
+        // Determine how the item will be used
+        switch (itemKey) {
+          case "Bottle of water":
+              useHealthItem(itemKey, 5);
+          case "Food ration": 
+              useHealthItem(itemKey, 10);
+        }     
+      });
+    }
+
+    // Called to when item is used to increase health
+    function useHealthItem(itemKey, amount) {
+            // Subtract amount from item
+            inventory[itemKey] -= amount;
+
+            // Add health
+            health += amount;
+                        
+            // Update health and inventory
+            displayInventory();
+            showHealth();
+    }
+
+    displayInventory();
+
     $('#o_look').on("click", function() {
 
     $("#o_dialogue").html("<p>I can see a building that is one fire about a half mile down the road.</p>"); 
