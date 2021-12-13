@@ -21,7 +21,7 @@ $(function() {
             };
             $("#o_health").html("Health: " + health);
         }, 
-        800); // 1000ms = 1s 
+        5000); // 1000ms = 1s 
     
     // Hide option buttons upon start
     $('#o_option1').toggle();
