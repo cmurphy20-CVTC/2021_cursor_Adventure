@@ -88,6 +88,7 @@ $(function() {
 
     // Called to when item is used to increase health
     function useHealthItem(itemKey, amount) {
+        if (health <= (maxHealth-amount)) {
             // Subtract amount from item
             inventory[itemKey] -= amount;
 
@@ -97,6 +98,7 @@ $(function() {
             // Update health and inventory
             displayInventory();
             showHealth();
+        }
     }
 
     displayInventory();
