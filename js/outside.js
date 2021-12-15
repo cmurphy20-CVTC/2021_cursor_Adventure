@@ -27,6 +27,10 @@ $(function() {
     $('#o_option1').toggle();
     $('#o_option2').toggle();
     $('#o_leave').toggle();
+    $('#o_attack').toggle();
+    $('#o_itemPick').toggle();
+    $('#o_useItem').toggle();
+    
     
 
     // Reset inventory to remove key 
@@ -151,10 +155,18 @@ $(function() {
                     
                     $('#o_option1').on("click", function() {  
                         
-                        $("#o_dialogue").html("<p>I found a spot where I can drop down safely to confront these two men.<br><br><br> (Intergrate Raider Combat sequence)</p>");
+                        // Player died and showing game over screen
+                        $("#o_dialogue").html("<p>I found a spot where I can drop down safely to confront these two men.<br>As you approach, you kick a rock over which alerts the men. Before you can run, one of the men catches you with a swift swing from the bat to the head.<br><br>Looks like you died.  Better luck next time.</p>");
                         
                         $('#o_option1').toggle();
                         $('#o_option2').toggle();
+                        
+                        $('#o_restart').css("visibility", "visible");
+                        
+                        $('#o_health').toggle();
+                        $('#inventory').toggle();
+                        $('#inventory_items').toggle();
+                        
                         
                     });
                     
@@ -189,11 +201,7 @@ $(function() {
                 
                 $('#o_look').on("click", function() {
                     
-                    $("#o_dialogue").html("<p>The water goes right up to my chest. It has a very nasty smell and slight glow to it.<br> I get about halfway across the water when I feel a crab-like claw grab my arm and pull my torso into the water.<br><br><br>(Intergrate Water monster Combat sequence)</p>"); 
-                    
-                    $('#o_option1').toggle();
-                    $('#o_option2').toggle();
-                    
+                    $("#o_dialogue").html("<p>The water goes right up to my chest. It has a very nasty smell and slight glow to it.<br> I get about halfway across the water when I feel a crab-like claw grab my arm and pull my torso into the water.<br><br><br>(Intergrate Water monster Combat sequence)</p>");
                 });
                 
         
