@@ -201,7 +201,26 @@ $(function() {
                 
                 $('#o_look').on("click", function() {
                     
-                    $("#o_dialogue").html("<p>The water goes right up to my chest. It has a very nasty smell and slight glow to it.<br> I get about halfway across the water when I feel a crab-like claw grab my arm and pull my torso into the water.<br><br><br>(Intergrate Water monster Combat sequence)</p>");
+                    $("#o_dialogue").html("<p>The water goes right up to my chest. It has a very nasty smell and slight glow to it.<br> </p>");
+
+                    $('#o_option1').toggle();
+                    $('#o_option2').toggle();
+
+                    $('#o_look').toggle();
+                    $('#o_look').html("begin swimming");
+
+                    $('#o_look').on("click", function() {
+
+                      $("#o_dialogue").html("<p>As you get about halfway across the water when you feel a crab-like claw grab your arm and pull your torso into the water. The creature then uses it's open claw to grab your lower body. You are immediately split into two.<br><br>Looks like you died.  Better luck next time.</p>");
+
+                      $('#o_restart').css("visibility", "visible");
+
+                      $('#o_look').toggle();  
+                      $('#o_health').toggle();
+                      $('#inventory').toggle();
+                      $('#inventory_items').toggle();
+
+                    });
                 });
                 
         
